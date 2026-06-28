@@ -1,0 +1,14 @@
+{
+  "name": "libsutils",
+  "version": "1",
+  "dependencies": [
+    "spdlog",
+    "rsm-binary-io",
+    "rapidcsv",
+    "xbyak",
+    {
+      "name": "imgui",
+      "features": [ "dx11-binding", "win32-binding", "freetype", "wchar32" ]
+    }
+  ]
+}
