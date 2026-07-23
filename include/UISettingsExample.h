@@ -20,7 +20,7 @@ namespace Example
 		void SetSettings();
 		void GetDefaultSettings();
 
-		static std::shared_ptr<SettingsTab> GetSingletonShared();
+		static util::shared_ptr<SettingsTab> GetSingletonShared();
 		static SettingsTab* GetSingleton();
 
 	public:

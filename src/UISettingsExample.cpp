@@ -109,9 +109,9 @@ namespace Example
 		return tab;
 	}
 
-	std::shared_ptr<SettingsTab> SettingsTab::GetSingletonShared()
+	util::shared_ptr<SettingsTab> SettingsTab::GetSingletonShared()
 	{
-		static std::shared_ptr<SettingsTab> sharedtab = std::shared_ptr<SettingsTab>(GetSingleton());
+		static util::shared_ptr<SettingsTab> sharedtab = util::create_shared<SettingsTab>(GetSingleton());
 		return sharedtab;
 	}
 

@@ -15,15 +15,17 @@ namespace Example
 
 		std::chrono::steady_clock::time_point _opened;
 
+		util::heap_allocator<void*> allocator;
+
 	public:
 		static ExampleWindow* GetSingleton();
-		static std::shared_ptr<ExampleWindow> GetSingletonShared();
+		static util::shared_ptr<ExampleWindow> GetSingletonShared();
 
 		void Init()
 		{
 			if (!_openKeys.keys) {
 				_openKeys.numKeys = 2;
-				_openKeys.keys = new uint32_t[_openKeys.numKeys];
+				_openKeys.keys = (uint32_t*)allocator.malloc(_openKeys.numKeys * sizeof(uint32_t));
 				_openKeys.keys[0] = 0x12;  // E
 				_openKeys.keys[1] = 0x2A;  // LShift
 				_openKeys.alternateKeyEsacape = false;
@@ -31,11 +33,17 @@ namespace Example
 
 			if (!_closeKeys.keys) {
 				_closeKeys.numKeys = 2;
-				_closeKeys.keys = new uint32_t[_closeKeys.numKeys];
+				_closeKeys.keys = (uint32_t*)allocator.malloc(_closeKeys.numKeys * sizeof(uint32_t));
 				_closeKeys.keys[0] = 0x12;  // E
 				_closeKeys.keys[1] = 0x2A;  // LShift
 				_closeKeys.alternateKeyEsacape = true;
 			}
+		}
+
+		~ExampleWindow() 
+		{
+			allocator.dealloc(_openKeys.keys);
+			allocator.dealloc(_closeKeys.keys);
 		}
 
 		virtual void Draw() override;

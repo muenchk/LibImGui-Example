@@ -159,3 +159,29 @@ target_precompile_headers(
 	PRIVATE
 		"${SOURCE_DIR}/PCH.h"
 )
+
+
+install(
+	FILES
+		"$<TARGET_FILE:${PROJECT_NAME}>"
+	DESTINATION "SKSE/Plugins"
+	COMPONENT "main"
+)
+
+
+install(
+	FILES
+		"$<TARGET_PDB_FILE:${PROJECT_NAME}>"
+	DESTINATION "/"
+	COMPONENT "pdbs"
+)
+
+if("${COPY_OUTPUT}")
+	add_custom_command(
+		TARGET "${PROJECT_NAME}"
+		POST_BUILD
+		COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_FILE:${PROJECT_NAME}>" "$ENV{LibImguiUIOutputPath}/SKSE/Plugins/"
+		COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_PDB_FILE:${PROJECT_NAME}>" "$ENV{LibImguiUIOutputPath}/SKSE/Plugins/"
+		VERBATIM
+	)
+endif()

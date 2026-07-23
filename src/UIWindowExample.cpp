@@ -8,9 +8,9 @@ namespace Example
 		return window;
 	}
 
-	std::shared_ptr<ExampleWindow> ExampleWindow::GetSingletonShared()
+	util::shared_ptr<ExampleWindow> ExampleWindow::GetSingletonShared()
 	{
-		static std::shared_ptr<ExampleWindow> sharedwindow = std::shared_ptr<ExampleWindow>(GetSingleton());
+		static util::shared_ptr<ExampleWindow> sharedwindow = util::create_shared<ExampleWindow>(GetSingleton());
 		return sharedwindow;
 	}
 
