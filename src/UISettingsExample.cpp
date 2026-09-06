@@ -1,5 +1,7 @@
 #include "UISettingsExample.h"
 
+using namespace LibImGuiUI;
+
 #define UI_CHANGED_VALUE(condition, block)                                                \
 	{                                                                                     \
 		ImGui::PushStyleColor(ImGuiCol_Text, condition ? _colourNormal : _colourChanged); \

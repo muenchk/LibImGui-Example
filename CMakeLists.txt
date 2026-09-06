@@ -19,7 +19,6 @@ macro(set_from_environment VARIABLE)
 	endif()
 endmacro()
 
-find_package(imgui CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 
@@ -145,13 +144,17 @@ target_include_directories(
 		"${SOURCE_DIR}"
 )
 
-add_subdirectory($ENV{CommonLibNGPath} CommonLibSSE EXCLUDE_FROM_ALL)
+add_subdirectory($ENV{CommonLibNGPathDoodlum} CommonLibSSE EXCLUDE_FROM_ALL)
+set_target_properties(CommonLibSSE PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${ROOT_DIR}/../commonlibsse-buildir/lib/$<CONFIG>"
+    LIBRARY_OUTPUT_DIRECTORY "${ROOT_DIR}/../commonlibsse-buildir/bin/$<CONFIG>"
+    RUNTIME_OUTPUT_DIRECTORY "${ROOT_DIR}/../commonlibsse-buildir/bin/$<CONFIG>"
+)
 
 target_link_libraries(
 	"${PROJECT_NAME}"
 	PRIVATE
 		CommonLibSSE::CommonLibSSE
-		imgui::imgui
 )
 
 target_precompile_headers(
@@ -160,6 +163,12 @@ target_precompile_headers(
 		"${SOURCE_DIR}/PCH.h"
 )
 
+find_package(Boost
+        MODULE
+        REQUIRED
+        COMPONENTS
+        container
+)
 
 install(
 	FILES

@@ -1,5 +1,7 @@
 #include "UIWindowExample.h"
 
+using namespace LibImGuiUI;
+
 namespace Example
 {
 	ExampleWindow* ExampleWindow::GetSingleton()
